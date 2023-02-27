@@ -26,3 +26,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Other Commands
+
+```cli
+
+
+Component ng g component my-new-component
+Directive ng g directive my-new-directive
+Pipe ng g pipe my-new-pipe
+Service ng g service my-new-service
+Class ng g class my-new-class
+Interface ng g interface my-new-interface
+Module ng g module my-module
+Web worker ng g web-worker my-web-worker
+
+```
