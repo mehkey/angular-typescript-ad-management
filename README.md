@@ -32,7 +32,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ```cli
 
-
 Component ng g component my-new-component
 Directive ng g directive my-new-directive
 Pipe ng g pipe my-new-pipe
