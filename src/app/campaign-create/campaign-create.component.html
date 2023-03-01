@@ -1,6 +1,346 @@
-<p>campaign-create works!</p>
+<!--p>campaign-create works!</p-->
+
+<form (submit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="campaign.name" required>
+    </div>
+    <div>
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" [(ngModel)]="campaign.start_date" required>
+    </div>
+    <div>
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" [(ngModel)]="campaign.end_date" required>
+    </div>
+    <div>
+      <label for="budget">Budget:</label>
+      <input type="number" id="budget" name="budget" [(ngModel)]="campaign.budget" required>
+    </div>
+    <div>
+      <label for="advertiser_id">Advertiser ID:</label>
+      <input type="number" id="advertiser_id" name="advertiser_id" [(ngModel)]="campaign.advertiser_id" required>
+    </div>
+    <!--div>
+      <label for="status">Status:</label>
+      <input type="text" id="status" name="status" [(ngModel)]="campaign.status">
+    </div-->
+    <div *ngFor="let adGroup of campaign.ad_groups; let i=index">
+      <h3>Ad Group {{ i+1 }}</h3>
+      <div>
+        <label for="ad_group_name">Name:</label>
+        <input type="text" id="ad_group_name" name="ad_group_name" [(ngModel)]="adGroup.name" required>
+      </div>
+      <div>
+        <label for="targeting_criteria">Targeting Criteria:</label>
+        <textarea id="targeting_criteria" name="targeting_criteria" [(ngModel)]="adGroup.targeting_criteria" required></textarea>
+      </div>
+      <div *ngFor="let ad of adGroup.ads; let j=index">
+        <h4>Ad {{ j+1 }}</h4>
+        <div>
+          <label for="ad_title">Title:</label>
+          <input type="text" id="ad_title" name="ad_title" [(ngModel)]="ad.title" required>
+        </div>
+        <div>
+          <label for="image_url">Image URL:</label>
+          <input type="text" id="image_url" name="image_url" [(ngModel)]="ad.image_url" required>
+        </div>
+        <div>
+          <label for="destination_url">Destination URL:</label>
+          <input type="text" id="destination_url" name="destination_url" [(ngModel)]="ad.destination_url" required>
+        </div>
+      </div>
+      <button type="button" (click)="addAd(adGroup)">Add Ad</button>
+      <button type="button" (click)="removeAdGroup(adGroup)">Remove Ad Group</button>
+    </div>
+    <button type="button" (click)="addAdGroup()">Add Ad Group</button>
+    <button type="submit">Create Campaign</button>
+  </form>
+
+  
+<!--form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+    <h2>Create a Campaign</h2>
+    <label>
+      Name:
+      <input type="text" formControlName="name">
+    </label>
+    <br>
+    <label>
+      Start Date:
+      <input type="date" formControlName="start_date">
+    </label>
+    <br>
+    <label>
+      End Date:
+      <input type="date" formControlName="end_date">
+    </label>
+    <br>
+    <label>
+      Budget:
+      <input type="number" formControlName="budget" step="0.01">
+    </label>
+    <br>
+    <label>
+      Advertiser ID:
+      <input type="number" formControlName="advertiser_id">
+    </label>
+    <br>
+    <label>
+      Status:
+      <select formControlName="status">
+        <option value="draft">Draft</option>
+        <option value="active">Active</option>
+        <option value="paused">Paused</option>
+        <option value="completed">Completed</option>
+      </select>
+    </label>
+    <br>
+    <h3>Ad Groups</h3>
+    <div formArrayName="ad_groups">
+      <div *ngFor="let group of adGroupForm; let i=index" [formGroupName]="i">
+        <label>
+          Name:
+          <input type="text" formControlName="name">
+        </label>
+        <br>
+        <label>
+          Targeting Criteria:
+          <textarea formControlName="targeting_criteria"></textarea>
+        </label>
+        <br>
+        <h4>Ads</h4>
+        <div formArrayName="ads">
+          <div *ngFor="let ad of adForm; let j=index" [formGroupName]="j">
+            <label>
+              Title:
+              <input type="text" formControlName="title">
+            </label>
+            <br>
+            <label>
+              Image URL:
+              <input type="text" formControlName="image_url">
+            </label>
+            <br>
+            <label>
+              Destination URL:
+              <input type="text" formControlName="destination_url">
+            </label>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Create Campaign</button>
+  </form>
+
+<!--form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+    <h2>Create a Campaign</h2>
+    <label>
+      Name:
+      <input type="text" formControlName="name">
+    </label>
+    <br>
+    <label>
+      Start Date:
+      <input type="date" formControlName="start_date">
+    </label>
+    <br>
+    <label>
+      End Date:
+      <input type="date" formControlName="end_date">
+    </label>
+    <br>
+    <label>
+      Budget:
+      <input type="number" formControlName="budget" step="0.01">
+    </label>
+    <br>
+    <label>
+      Advertiser ID:
+      <input type="number" formControlName="advertiser_id">
+    </label>
+    <br>
+    <label>
+      Status:
+      <select formControlName="status">
+        <option value="draft">Draft</option>
+        <option value="active">Active</option>
+        <option value="paused">Paused</option>
+        <option value="completed">Completed</option>
+      </select>
+    </label>
+    <br>
+    <h3>Ad Groups</h3>
+    <div formArrayName="ad_groups">
+      <div *ngFor="let group of adGroupForm.controls; let i=index" [formGroupName]="i">
+        <label>
+          Name:
+          <input type="text" formControlName="name">
+        </label>
+        <br>
+        <label>
+          Targeting Criteria:
+          <textarea formControlName="targeting_criteria"></textarea>
+        </label>
+        <br>
+        <h4>Ads</h4>
+        <div formArrayName="ads">
+          <div *ngFor="let ad of adForm.controls; let j=index" [formGroupName]="j">
+            <label>
+              Title:
+              <input type="text" formControlName="title">
+            </label>
+            <br>
+            <label>
+              Image URL:
+              <input type="text" formControlName="image_url">
+            </label>
+            <br>
+            <label>
+              Destination URL:
+              <input type="text" formControlName="destination_url">
+            </label>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Create Campaign</button>
+  </form>
+
+<form (submit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="campaign.name" required>
+    </div>
+    <div>
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" [(ngModel)]="campaign.start_date" required>
+    </div>
+    <div>
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" [(ngModel)]="campaign.end_date" required>
+    </div>
+    <div>
+      <label for="budget">Budget:</label>
+      <input type="number" id="budget" name="budget" [(ngModel)]="campaign.budget" required>
+    </div>
+    <div>
+      <label for="advertiser_id">Advertiser ID:</label>
+      <input type="number" id="advertiser_id" name="advertiser_id" [(ngModel)]="campaign.advertiser_id" required>
+    </div>
+    <div>
+      <label for="status">Status:</label>
+      <input type="text" id="status" name="status" [(ngModel)]="campaign.status">
+    </div>
+    <div *ngFor="let adGroup of campaign.ad_groups; let i=index">
+      <h3>Ad Group {{ i+1 }}</h3>
+      <div>
+        <label for="ad_group_name">Name:</label>
+        <input type="text" id="ad_group_name" name="ad_group_name" [(ngModel)]="adGroup.name" required>
+      </div>
+      <div>
+        <label for="targeting_criteria">Targeting Criteria:</label>
+        <textarea id="targeting_criteria" name="targeting_criteria" [(ngModel)]="adGroup.targeting_criteria" required></textarea>
+      </div>
+      <div *ngFor="let ad of adGroup.ads; let j=index">
+        <h4>Ad {{ j+1 }}</h4>
+        <div>
+          <label for="ad_title">Title:</label>
+          <input type="text" id="ad_title" name="ad_title" [(ngModel)]="ad.title" required>
+        </div>
+        <div>
+          <label for="image_url">Image URL:</label>
+          <input type="text" id="image_url" name="image_url" [(ngModel)]="ad.image_url" required>
+        </div>
+        <div>
+          <label for="destination_url">Destination URL:</label>
+          <input type="text" id="destination_url" name="destination_url" [(ngModel)]="ad.destination_url" required>
+        </div>
+      </div>
+      <button type="button" (click)="addAd(adGroup)">Add Ad</button>
+      <button type="button" (click)="removeAdGroup(adGroup)">Remove Ad Group</button>
+    </div>
+    <button type="button" (click)="addAdGroup()">Add Ad Group</button>
+    <button type="submit">Create Campaign</button>
+  </form>
 
 <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+    <h2>Create a Campaign</h2>
+    <label>
+      Name:
+      <input type="text" formControlName="name">
+    </label>
+    <br>
+    <label>
+      Start Date:
+      <input type="date" formControlName="start_date">
+    </label>
+    <br>
+    <label>
+      End Date:
+      <input type="date" formControlName="end_date">
+    </label>
+    <br>
+    <label>
+      Budget:
+      <input type="number" formControlName="budget" step="0.01">
+    </label>
+    <br>
+    <label>
+      Advertiser ID:
+      <input type="number" formControlName="advertiser_id">
+    </label>
+    <br>
+    <label>
+      Status:
+      <select formControlName="status">
+        <option value="draft">Draft</option>
+        <option value="active">Active</option>
+        <option value="paused">Paused</option>
+        <option value="completed">Completed</option>
+      </select>
+    </label>
+    <br>
+    <h3>Ad Groups</h3>
+    <div formArrayName="ad_groups">
+      <div *ngFor="let group of adGroupForm.controls; let i=index" [formGroupName]="i">
+        <label>
+          Name:
+          <input type="text" formControlName="name">
+        </label>
+        <br>
+        <label>
+          Targeting Criteria:
+          <textarea formControlName="targeting_criteria"></textarea>
+        </label>
+        <br>
+        <h4>Ads</h4>
+        <div formArrayName="ads">
+          <div *ngFor="let ad of adForm.controls; let j=index" [formGroupName]="j">
+            <label>
+              Title:
+              <input type="text" formControlName="title">
+            </label>
+            <br>
+            <label>
+              Image URL:
+              <input type="text" formControlName="image_url">
+            </label>
+            <br>
+            <label>
+              Destination URL:
+              <input type="text" formControlName="destination_url">
+            </label>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Create Campaign</button>
+  </form>
+
+<!--form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text" id="name" formControlName="name" required>
@@ -55,4 +395,4 @@
     <button type="button" (click)="addAdGroup()">Add Ad Group</button>
   </div>
   <button type="submit">Create Campaign</button>
-</form> 
+</form--> 
