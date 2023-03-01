@@ -90,7 +90,7 @@ export class CampaignCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.campaignId) {
-      this.campaignService.updateCampaign(this.campaign).subscribe(
+      this.campaignService.createCampaign(this.campaign).subscribe(
         response => {
           console.log(response);
         },
