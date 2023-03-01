@@ -7,7 +7,7 @@ import { Campaign } from './campaign.model';
   providedIn: 'root'
 })
 export class CampaignService {
-  private apiUrl =  'localhost:8000/campaigns'//'https://example.com/api/campaigns';
+  private apiUrl =  'localhost:8000/campaigns' //'https://example.com/api/campaigns';
 
   constructor(private http: HttpClient) { }
 
