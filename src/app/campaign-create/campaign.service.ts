@@ -8,7 +8,7 @@ import { Campaign } from './campaign.model';
   providedIn: 'root'
 })
 export class CampaignService {
-  private campaignsUrl = 'http://example.com/campaigns';
+  private campaignsUrl = 'http://127.0.0.1:8000/ad-campaigns';//'http://example.com/campaigns';
 
   constructor(private http: HttpClient) { }
 
