@@ -5,7 +5,9 @@ Angular Typescript Ad Management allowing users to create ad campaigns, modify c
 
 ![SCREEN 1](./SCREEN1.png)
 
-![SCREEN 1](./SCREEN2.png)
+![SCREEN 2](./SCREEN2.png)
+
+![SCREEN 3](./SCREEN3.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
 
