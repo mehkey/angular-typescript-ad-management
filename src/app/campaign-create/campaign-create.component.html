@@ -1,0 +1,58 @@
+<p>campaign-create works!</p>
+
+<form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" required>
+  </div>
+  <div class="form-group">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" formControlName="start_date" required>
+  </div>
+  <div class="form-group">
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" formControlName="end_date" required>
+  </div>
+  <div class="form-group">
+    <label for="budget">Budget:</label>
+    <input type="number" id="budget" formControlName="budget" required>
+  </div>
+  <div class="form-group">
+    <label for="advertiser_id">Advertiser ID:</label>
+    <input type="number" id="advertiser_id" formControlName="advertiser_id" required>
+  </div>
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <input type="text" id="status" formControlName="status">
+  </div>
+  <div class="form-group">
+    <label for="ad_groups">Ad Groups:</label>
+    <div formArrayName="ad_groups">
+      <div *ngFor="let adGroup of adGroups.controls; let i = index" [formGroupName]="i">
+        <div class="ad-group">
+          <label for="ad_group_name_{{i}}">Name:</label>
+          <input type="text" id="ad_group_name_{{i}}" formControlName="name" required>
+          <label for="ad_group_targeting_{{i}}">Targeting Criteria:</label>
+          <input type="text" id="ad_group_targeting_{{i}}" formControlName="targeting_criteria" required>
+          <div formArrayName="ads">
+            <div *ngFor="let ad of adGroupAds.controls; let j = index" [formGroupName]="j">
+              <div class="ad">
+                <label for="ad_title_{{i}}_{{j}}">Title:</label>
+                <input type="text" id="ad_title_{{i}}_{{j}}" formControlName="title" required>
+                <label for="ad_image_url_{{i}}_{{j}}">Image URL:</label>
+                <input type="text" id="ad_image_url_{{i}}_{{j}}" formControlName="image_url" required>
+                <label for="ad_destination_url_{{i}}_{{j}}">Destination URL:</label>
+                <input type="text" id="ad_destination_url_{{i}}_{{j}}" formControlName="destination_url" required>
+                <button type="button" (click)="removeAd(i, j)">Remove Ad</button>
+              </div>
+            </div>
+          </div>
+          <button type="button" (click)="addAd(i)">Add Ad</button>
+          <button type="button" (click)="removeAdGroup(i)">Remove Ad Group</button>
+        </div>
+      </div>
+    </div>
+    <button type="button" (click)="addAdGroup()">Add Ad Group</button>
+  </div>
+  <button type="submit">Create Campaign</button>
+</form> 
