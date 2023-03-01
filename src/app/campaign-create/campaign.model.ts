@@ -11,11 +11,12 @@ export interface Ad {
   }
   
   export interface Campaign {
+    campaignId: number;
     name: string;
-    start_date: Date;
-    end_date: Date;
-    budget: number;
-    advertiser_id: number;
+    start_date: Date| null;
+    end_date: Date| null;
+    budget: number| null;
+    advertiser_id: number| null;
     status?: string;
     ad_groups: AdGroup[];
   }
